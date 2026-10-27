@@ -1,0 +1,24 @@
+{
+  "shop": "tekled-kz.myshopify.com",
+  "company": "Tekled by Teksan",
+  "merchant_id": "Teksan",
+
+  "_locations_note": "Shopify lokasyon adi -> Kaspi PP kodu. Kaspi kabinetindeki Точки продаж listesine gore (26.10.2026).",
+  "locations": {
+    "Almaty": "PP1",
+    "Astana": "PP2",
+    "Atyrau": "PP3",
+    "Shymkent": "PP4",
+    "Oskomen": "PP5",
+    "Aktau": "PP6"
+  },
+
+  "_min_stock_note": "Bir noktada stok bu sayidan azsa urun o noktada kapali (available=no) gider.",
+  "min_stock": 10,
+
+  "_price_note": "compare_at: Shopify'daki ustu cizili fiyat varsa o, yoksa normal fiyat gonderilir (Zoomia boyle yapiyordu).",
+  "price_source": "compare_at",
+
+  "_sku_note": "true: sadece kaspi_skus.txt icindeki (Kaspi'de zaten olan) urunler gonderilir.",
+  "only_listed_skus": true
+}
