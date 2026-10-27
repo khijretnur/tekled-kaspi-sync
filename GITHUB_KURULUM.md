@@ -7,7 +7,7 @@ Bu klasördeki script her gün Shopify'dan fiyat ve stokları okuyup Kaspi'nin i
 | Ayar | Değer | Anlamı |
 |---|---|---|
 | company / merchant_id | Tekled by Teksan / Teksan | XML'in başına yazılır |
-| locations | Almaty=PP1, Astana=PP2, Atyrau=PP3, Shymkent=PP4, Oskomen=PP5, Aktau=PP6 | Shopify lokasyonu → Kaspi satış noktası |
+| locations | Almaty=PP1, Astana=PP2, Atyrau=PP3, Shymkent=PP4, Oskomen=PP5, Aktau=PP6 | Shopify lokasyonu → Kaspi satış noktası. Aynı PP birden fazla lokasyona verilebilir (depo + mağaza), stokları toplanır |
 | min_stock | 10 | Bir noktada stok 10'dan azsa ürün o noktada kapalı gider |
 | price_source | compare_at | Üstü çizili fiyat varsa o, yoksa normal fiyat (Zoomia ile aynı) |
 | only_listed_skus | true | Sadece `kaspi_skus.txt` içindeki, Kaspi'de zaten olan ürünler gönderilir |

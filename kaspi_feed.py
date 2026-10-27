@@ -49,9 +49,7 @@ def load_config():
     bad = [loc for loc, pp in cfg["locations"].items() if not pp or "?" in pp]
     if bad:
         fail("config.json icinde PP kodu girilmemis lokasyonlar var: " + ", ".join(bad))
-    pps = list(cfg["locations"].values())
-    if len(set(pps)) != len(pps):
-        fail("config.json icinde ayni PP kodu birden fazla lokasyona verilmis.")
+    # Ayni PP koduna birden fazla lokasyon verilebilir (orn. depo + magaza): stoklari toplanir.
     if not cfg.get("merchant_id"):
         fail("config.json icinde merchant_id bos.")
     return cfg
@@ -150,14 +148,19 @@ def build(cfg, variants, kaspi_skus):
 
         stock = {pp: 0 for pp in loc_to_pp.values()}
         if active:
+            # Ayni SKU birden fazla aktif varyantta varsa her lokasyon icin en yuksegi al (cift sayma yok),
+            # sonra ayni PP'ye bagli lokasyonlari (depo + magaza) topla.
+            per_loc = {}
             for v in active:
                 for lvl in v["inventoryItem"]["inventoryLevels"]["nodes"]:
                     name = lvl["location"]["name"]
                     seen_locs.add(name)
-                    pp = loc_to_pp.get(name)
-                    if pp:
-                        q = lvl["quantities"][0]["quantity"] if lvl["quantities"] else 0
-                        stock[pp] = max(stock[pp], q or 0)
+                    q = lvl["quantities"][0]["quantity"] if lvl["quantities"] else 0
+                    per_loc[name] = max(per_loc.get(name, 0), q or 0)
+            for name, q in per_loc.items():
+                pp = loc_to_pp.get(name)
+                if pp:
+                    stock[pp] += max(q, 0)
         else:
             audit.append((sku, "Shopify'da urun aktif degil", "tum noktalarda kapali gonderildi"))
 
